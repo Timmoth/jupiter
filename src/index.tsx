@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import { Canvas, useFrame, ThreeElements, useLoader } from "@react-three/fiber";
 import React from "react";
@@ -7,15 +7,17 @@ import { OrbitControls } from "@react-three/drei";
 
 function Jupiter(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
-  const loader = new THREE.TextureLoader();
 
-  const bump = loader.load(
+  const bump = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/jupiter-bump-min.jpg"
   );
-  const map = loader.load(
+  const map = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/jupiter-map-min.jpg"
   );
-  const normal = loader.load(
+  const normal = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/jupiter-norm-min.jpg"
   );
 
@@ -33,9 +35,9 @@ function Jupiter(props: ThreeElements["mesh"]) {
 
 function Sun(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
-  const loader = new THREE.TextureLoader();
 
-  const map = loader.load(
+  const map = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/sun-map-min.jpg"
   );
 
@@ -49,16 +51,10 @@ function Sun(props: ThreeElements["mesh"]) {
 
 function Io(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
-  const loader = new THREE.TextureLoader();
 
-  const bump = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/io-bump-min.jpg"
-  );
-  const map = loader.load(
+  const map = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/io-diff-min.jpg"
-  );
-  const normal = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/io-norm-min.jpg"
   );
 
   useFrame((state, delta) => {
@@ -72,23 +68,16 @@ function Io(props: ThreeElements["mesh"]) {
   return (
     <mesh {...props} ref={ref}>
       <sphereGeometry args={[0.05, 32, 32]} />
-      <meshStandardMaterial map={map} normalMap={normal} bumpMap={bump} />
+      <meshStandardMaterial map={map} />
     </mesh>
   );
 }
 
 function Europa(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
-  const loader = new THREE.TextureLoader();
-
-  const bump = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/europa-bump-min.jpg"
-  );
-  const map = loader.load(
+  const map = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/europa-diff-min.jpg"
-  );
-  const normal = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/europa-norm-min.jpg"
   );
 
   useFrame((state, delta) => {
@@ -102,23 +91,16 @@ function Europa(props: ThreeElements["mesh"]) {
   return (
     <mesh {...props} ref={ref}>
       <sphereGeometry args={[0.08, 32, 32]} />
-      <meshStandardMaterial map={map} normalMap={normal} bumpMap={bump} />
+      <meshStandardMaterial map={map} />
     </mesh>
   );
 }
 
 function Ganymede(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
-  const loader = new THREE.TextureLoader();
-
-  const bump = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/ganymede-bump-min.jpg"
-  );
-  const map = loader.load(
+  const map = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/ganymede-diff-min.jpg"
-  );
-  const normal = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/ganymede-norm-min.jpg"
   );
 
   useFrame((state, delta) => {
@@ -131,23 +113,17 @@ function Ganymede(props: ThreeElements["mesh"]) {
   return (
     <mesh {...props} ref={ref}>
       <sphereGeometry args={[0.1, 32, 32]} />
-      <meshStandardMaterial map={map} normalMap={normal} bumpMap={bump} />
+      <meshStandardMaterial map={map} />
     </mesh>
   );
 }
 
 function Callisto(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
-  const loader = new THREE.TextureLoader();
 
-  const bump = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/callisto-bump-min.jpg"
-  );
-  const map = loader.load(
+  const callisto_map = useLoader(
+    THREE.TextureLoader,
     "https://timmoth.github.io/jupiter/dist/assets/callisto-diff-min.jpg"
-  );
-  const normal = loader.load(
-    "https://timmoth.github.io/jupiter/dist/assets/callisto-norm-min.jpg"
   );
 
   useFrame((state, delta) => {
@@ -161,7 +137,7 @@ function Callisto(props: ThreeElements["mesh"]) {
   return (
     <mesh {...props} ref={ref}>
       <sphereGeometry args={[0.2, 32, 32]} />
-      <meshStandardMaterial map={map} normalMap={normal} bumpMap={bump} />
+      <meshStandardMaterial map={callisto_map} />
     </mesh>
   );
 }
@@ -204,16 +180,22 @@ function Stars() {
   );
 }
 
-createRoot(document.getElementById("root") as HTMLElement).render(
-  <Canvas style={{ background: "black" }}>
-    <Jupiter position={[0, 0, 0]} />
-    <Io position={[0, 0, 3]} />
-    <Europa position={[0, 0, 5]} />
-    <Ganymede position={[0, 0, 6]} />
-    <Callisto position={[0, 0, 8]} />
-    <pointLight position={[40, 0, 40]} />
-    <Sun position={[45, 0, 45]} />
-    <Stars />
-    <OrbitControls />
-  </Canvas>
-);
+function Scene() {
+  return (
+    <Canvas style={{ background: "black" }}>
+      <Suspense>
+        <Jupiter position={[0, 0, 0]} />
+        <Io position={[0, 0, 3]} />
+        <Europa position={[0, 0, 5]} />
+        <Ganymede position={[0, 0, 6]} />
+        <Callisto position={[0, 0, 8]} />
+        <pointLight position={[40, 0, 40]} />
+        <Sun position={[45, 0, 45]} />
+      </Suspense>
+      <Stars />
+      <OrbitControls />
+    </Canvas>
+  );
+}
+
+createRoot(document.getElementById("root") as HTMLElement).render(<Scene />);
