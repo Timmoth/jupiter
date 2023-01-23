@@ -9,9 +9,15 @@ function Jupiter(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
   const loader = new THREE.TextureLoader();
 
-  const bump = loader.load("./dist/assets/jupiter-bump-min.jpg");
-  const map = loader.load("./dist/assets/jupiter-map-min.jpg");
-  const normal = loader.load("./dist/assets/jupiter-norm-min.jpg");
+  const bump = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/jupiter-bump-min.jpg"
+  );
+  const map = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/jupiter-map-min.jpg"
+  );
+  const normal = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/jupiter-norm-min.jpg"
+  );
 
   useFrame((state, delta) => {
     ref.current.rotation.y += delta / 5;
@@ -29,7 +35,9 @@ function Sun(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
   const loader = new THREE.TextureLoader();
 
-  const map = loader.load("./dist/assets/sun-map-min.jpg");
+  const map = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/sun-map-min.jpg"
+  );
 
   return (
     <mesh {...props} ref={ref}>
@@ -43,15 +51,22 @@ function Io(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
   const loader = new THREE.TextureLoader();
 
-  const bump = loader.load("./dist/assets/io-bump-min.jpg");
-  const map = loader.load("./dist/assets/io-diff-min.jpg");
-  const normal = loader.load("./dist/assets/io-norm-min.jpg");
+  const bump = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/io-bump-min.jpg"
+  );
+  const map = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/io-diff-min.jpg"
+  );
+  const normal = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/io-norm-min.jpg"
+  );
 
   useFrame((state, delta) => {
     ref.current.rotation.y += delta / 3;
 
-    ref.current.position.x = 3 * Math.sin(state.clock.elapsedTime / 3);
-    ref.current.position.z = 3 * Math.cos(state.clock.elapsedTime / 3);
+    let t = (state.clock.elapsedTime + 1) / 3;
+    ref.current.position.x = 3 * Math.sin(t);
+    ref.current.position.z = 3 * Math.cos(t);
   });
 
   return (
@@ -66,15 +81,22 @@ function Europa(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
   const loader = new THREE.TextureLoader();
 
-  const bump = loader.load("./dist/assets/europa-bump-min.jpg");
-  const map = loader.load("./dist/assets/europa-diff-min.jpg");
-  const normal = loader.load("./dist/assets/europa-norm-min.jpg");
+  const bump = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/europa-bump-min.jpg"
+  );
+  const map = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/europa-diff-min.jpg"
+  );
+  const normal = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/europa-norm-min.jpg"
+  );
 
   useFrame((state, delta) => {
     ref.current.rotation.y += delta / 5;
 
-    ref.current.position.x = 5 * Math.sin(state.clock.elapsedTime / 5);
-    ref.current.position.z = 5 * Math.cos(state.clock.elapsedTime / 5);
+    let t = (state.clock.elapsedTime + 2) / 5;
+    ref.current.position.x = 5 * Math.sin(t);
+    ref.current.position.z = 5 * Math.cos(t);
   });
 
   return (
@@ -89,15 +111,21 @@ function Ganymede(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
   const loader = new THREE.TextureLoader();
 
-  const bump = loader.load("./dist/assets/ganymede-bump-min.jpg");
-  const map = loader.load("./dist/assets/ganymede-diff-min.jpg");
-  const normal = loader.load("./dist/assets/ganymede-norm-min.jpg");
+  const bump = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/ganymede-bump-min.jpg"
+  );
+  const map = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/ganymede-diff-min.jpg"
+  );
+  const normal = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/ganymede-norm-min.jpg"
+  );
 
   useFrame((state, delta) => {
     ref.current.rotation.y += delta / 6;
-
-    ref.current.position.x = 6 * Math.sin(state.clock.elapsedTime / 6);
-    ref.current.position.z = 6 * Math.cos(state.clock.elapsedTime / 6);
+    let t = (state.clock.elapsedTime + 3) / 6;
+    ref.current.position.x = 6 * Math.sin(t);
+    ref.current.position.z = 6 * Math.cos(t);
   });
 
   return (
@@ -112,15 +140,22 @@ function Callisto(props: ThreeElements["mesh"]) {
   const ref = useRef<THREE.Mesh>(null!);
   const loader = new THREE.TextureLoader();
 
-  const bump = loader.load("./dist/assets/callisto-bump-min.jpg");
-  const map = loader.load("./dist/assets/callisto-diff-min.jpg");
-  const normal = loader.load("./dist/assets/callisto-norm-min.jpg");
+  const bump = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/callisto-bump-min.jpg"
+  );
+  const map = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/callisto-diff-min.jpg"
+  );
+  const normal = loader.load(
+    "https://timmoth.github.io/jupiter/dist/assets/callisto-norm-min.jpg"
+  );
 
   useFrame((state, delta) => {
     ref.current.rotation.y += delta / 8;
 
-    ref.current.position.x = 8 * Math.sin(state.clock.elapsedTime / 8);
-    ref.current.position.z = 8 * Math.cos(state.clock.elapsedTime / 8);
+    let t = (state.clock.elapsedTime + 4) / 8;
+    ref.current.position.x = 8 * Math.sin(t);
+    ref.current.position.z = 8 * Math.cos(t);
   });
 
   return (
@@ -132,7 +167,10 @@ function Callisto(props: ThreeElements["mesh"]) {
 }
 
 function Stars() {
-  const image = useLoader(THREE.TextureLoader, "./dist/assets/star.png");
+  const image = useLoader(
+    THREE.TextureLoader,
+    "https://timmoth.github.io/jupiter/dist/assets/star.png"
+  );
   let positions = useMemo(() => {
     let positions: number[] = [];
     for (let i = 0; i < 500; i++) {
